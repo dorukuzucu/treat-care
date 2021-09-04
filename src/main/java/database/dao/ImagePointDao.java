@@ -8,7 +8,6 @@ import main.java.database.entities.ImagePoint;
 import main.java.database.entities.PatientImage;
 
 
-//TODO implement get by image method
 public class ImagePointDao implements IDao<ImagePoint> {
     private final String url="jdbc:sqlite:test.db";
     private static final String SELECT_IMAGE_POINT_BY_ID = "select * from image_points where id =?";

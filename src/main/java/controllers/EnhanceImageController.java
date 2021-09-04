@@ -3,7 +3,6 @@ package main.java.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
-import main.java.controllers.DrawingController;
 
 
 public class EnhanceImageController {

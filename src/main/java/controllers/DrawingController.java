@@ -23,7 +23,7 @@ import main.java.database.entities.ImagePoint;
 import main.java.database.entities.Patient;
 import main.java.database.entities.PatientImage;
 import main.java.utils.PointEnum;
-import main.java.utils.TableWindow;
+import main.java.utils.DisplayIResult;
 import main.java.utils.UserDataHandler;
 
 import java.io.*;
@@ -273,7 +273,7 @@ public class DrawingController {
         analysis.setPoints(UserDataHandler.getInstance().getImagePointHashMap());
         analysis.execute();
         HashMap<CalculationTypeEnum, IResult> results = analysis.getResult();
-        TableWindow tableWindow = new TableWindow();
+        DisplayIResult tableWindow = new DisplayIResult();
         tableWindow.display(results, "Calculation Results");
     }
 }

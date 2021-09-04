@@ -3,19 +3,16 @@ package main.java.utils;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.java.analysis.results.IResult;
 import main.java.analysis.utils.CalculationTypeEnum;
-import main.java.database.entities.Patient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class TableWindow {
+public class DisplayIResult {
 
     TableView<List<String>> tableView = new TableView<>();
     Stage window = new Stage();

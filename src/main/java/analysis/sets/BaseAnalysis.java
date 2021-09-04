@@ -6,9 +6,7 @@ import main.java.analysis.utils.CalculationTypeEnum;
 import main.java.database.entities.ImagePoint;
 import main.java.utils.PointEnum;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 abstract class BaseAnalysis implements IAnalysisSet{

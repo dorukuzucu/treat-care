@@ -12,11 +12,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
-import javafx.scene.layout.Pane;
 import main.java.database.dao.PatientDao;
 import main.java.database.entities.Patient;
-import main.java.utils.PaneEnum;
-import main.java.utils.UserDataHandler;
 
 
 public class ArchiveController {
