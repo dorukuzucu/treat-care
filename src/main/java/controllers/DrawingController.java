@@ -74,6 +74,8 @@ public class DrawingController {
     private final HashMap<PointEnum, Circle> points = new HashMap<>();
     ArrayList<PointEnum> pointList = new ArrayList<>();
 
+    private UserDataHandler userDataHandler = UserDataHandler.getInstance();
+
     ColorAdjust colorAdjust = new ColorAdjust();
 
     public void initialize(){
@@ -86,8 +88,8 @@ public class DrawingController {
         //todo refactor
         //todo when called, get all user related data and display
         //todo for point displaying, call addCircle method, also extract the part where list value is incremented
-        UserDataHandler.getInstance().getPatientData();
-        PatientImage imageData = UserDataHandler.getInstance().getActivePatientImage();
+        userDataHandler.getPatientData();
+        PatientImage imageData = userDataHandler.getActivePatientImage();
         if (!(imageData==null)){
             this.setImageToImageView(imageData.getImage());
             this.displayUserDataPoints();
@@ -95,7 +97,7 @@ public class DrawingController {
     }
 
     private void displayUserDataPoints(){
-        HashMap<PointEnum, ImagePoint> imagePointHashMap = UserDataHandler.getInstance().getImagePointHashMap();
+        HashMap<PointEnum, ImagePoint> imagePointHashMap = userDataHandler.getImagePointHashMap();
         if(imagePointHashMap==null){
             return;
         }
@@ -110,7 +112,7 @@ public class DrawingController {
     private void addPoint(PointEnum selectedPoint, double x, double y) {
 
         Circle newCircle = this.drawCircle(x, y);
-        UserDataHandler.getInstance().addImagePoint(selectedPoint, x, y);  // This line overrides value if already inserted
+        userDataHandler.addImagePoint(selectedPoint, x, y);  // This line overrides value if already inserted
         //TODO remove point if same id exists
         if(this.points.containsKey(selectedPoint)){
             Circle oldCircle = this.points.get(selectedPoint);
@@ -166,8 +168,8 @@ public class DrawingController {
         this.setImageToImageView(fileInputStream);
 
         PatientImageDao patientImageDao = new PatientImageDao();
-        PatientImage savedPatientImage = patientImageDao.save(UserDataHandler.getInstance().getActivePatient().getId(), imageFile);
-        UserDataHandler.getInstance().setActivePatientImage(savedPatientImage);
+        PatientImage savedPatientImage = patientImageDao.save(userDataHandler.getActivePatient().getId(), imageFile);
+        userDataHandler.setActivePatientImage(savedPatientImage);
     }
 
     private void setImageToImageView(InputStream imageFileInputStream){
@@ -255,7 +257,7 @@ public class DrawingController {
     }
 
     private void setPatientInfoLabels(){
-        Patient activePatient = UserDataHandler.getInstance().getActivePatient();
+        Patient activePatient = userDataHandler.getActivePatient();
         this.nameLastNameLabel.setText(activePatient.getName());
         this.birthDateLabel.setText(activePatient.getBirthDay());
         this.genderLabel.setText(activePatient.getGender());
@@ -264,13 +266,13 @@ public class DrawingController {
 
     //TODO split saving and calculation methods
     public void saveButtonClicked() {
-        UserDataHandler.getInstance().saveImagePoints();
+        userDataHandler.saveImagePoints();
         AnalysisEnum selectedAnalysis = this.analyseComboBox.getValue();
         if(selectedAnalysis==null)
             return;
         AnalysisFactory analysisFactory = new AnalysisFactory();
         IAnalysisSet analysis = analysisFactory.getAnalysis(selectedAnalysis);
-        analysis.setPoints(UserDataHandler.getInstance().getImagePointHashMap());
+        analysis.setPoints(userDataHandler.getImagePointHashMap());
         analysis.execute();
         HashMap<CalculationTypeEnum, IResult> results = analysis.getResult();
         DisplayIResult tableWindow = new DisplayIResult();
