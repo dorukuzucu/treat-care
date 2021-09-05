@@ -168,7 +168,7 @@ public class DrawingController {
         this.setImageToImageView(fileInputStream);
 
         PatientImageDao patientImageDao = new PatientImageDao();
-        PatientImage savedPatientImage = patientImageDao.save(userDataHandler.getActivePatient().getId(), imageFile);
+        PatientImage savedPatientImage = patientImageDao.newImage(userDataHandler.getActivePatient().getId(), imageFile);
         userDataHandler.setActivePatientImage(savedPatientImage);
     }
 
