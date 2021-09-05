@@ -48,12 +48,3 @@ public enum PointEnum {
         return pointType;
     }
 }
-/*
-class Test{
-    public static void main(String[] args){
-        PointEnum test = PointEnum.fromString("Ruler 1");
-        System.out.println(test);
-    }
-}
-
- */
