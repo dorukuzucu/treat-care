@@ -28,10 +28,6 @@ public class Runner extends Application {
         primaryStage.show();
     }
 
-    private void SystemClose(){
-       // System.exit(0);           BURASI AÇIKKEN NEDENSE KASIYOR??
-    }
-
     public static void main(String[] args){
         launch(args);
     }
