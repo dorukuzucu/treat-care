@@ -1,5 +1,6 @@
 package main.java.database.dao;
 
+import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ public class ImagePointDao implements IDao<ImagePoint> {
     private final String url="jdbc:sqlite:test.db";
     private static final String SELECT_IMAGE_POINT_BY_ID = "select * from image_points where id =?";
     private static final String SELECT_IMAGE_POINT_BY_IMAGE = "select * from image_points where image_id =?";
+    private static final String SELECT_IMAGE_POINT_BY_IMAGE_AND_POINT_NAME = "select * from image_points where image_id =? and point_name=?";
     private static final String SELECT_ALL_IMAGE_POINTS = "select * from image_points";
     private static final String INSERT_IMAGE_POINT_SQL = "INSERT INTO image_points  (image_id, point_name, point_x, point_y) VALUES "
             + " (?, ?, ?, ?);";
@@ -62,6 +64,20 @@ public class ImagePointDao implements IDao<ImagePoint> {
         return imagePoints;
     }
 
+    public ImagePoint getByImageAndPointName(double patientImageId, String pointName){
+        ImagePoint imagePoint = null;
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement preparedStatement = conn.prepareStatement(SELECT_IMAGE_POINT_BY_IMAGE_AND_POINT_NAME)) {
+            preparedStatement.setDouble(1,patientImageId);
+            preparedStatement.setString(2,pointName);
+            ResultSet rs = preparedStatement.executeQuery();
+            imagePoint = getImagePointFromResultSet(rs);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return imagePoint;
+    }
+
     // TODO add return
     // TODO update if already saved
     public ImagePoint save(Double imageId, String pointName, Double pointX, Double pointY) {
@@ -79,15 +95,23 @@ public class ImagePointDao implements IDao<ImagePoint> {
             return null;
         }
     }
+    public void newImagePoint(Double imageId, String pointName, Double pointX, Double pointY){
+        ImagePoint imagePoint = this.getByImageAndPointName(imageId, pointName);
+        if(imagePoint==null){
+            this.save(imageId, pointName, pointX, pointY);
+        }
+        else{
+            this.update(imagePoint, pointX, pointY);
+        }
+    }
 
-    @Override
-    public boolean update(ImagePoint imagePoint, String[] params) {
+    public boolean update(ImagePoint imagePoint, Double pointX, Double pointY){
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement preparedStatement = conn.prepareStatement(UPDATE_IMAGE_POINT_SQL)) {
             preparedStatement.setDouble(1,imagePoint.getImageId());
             preparedStatement.setString(2,imagePoint.getPointName());
-            preparedStatement.setDouble(3,imagePoint.getPointX());
-            preparedStatement.setDouble(4,imagePoint.getPointY());
+            preparedStatement.setDouble(3,pointX);
+            preparedStatement.setDouble(4,pointY);
             preparedStatement.setDouble(5,imagePoint.getId());
             return preparedStatement.executeUpdate()>0;
         }catch (SQLException e) {

@@ -17,7 +17,7 @@ public class PatientImageDao implements IDao<PatientImage> {
     private static final String INSERT_IMAGE_SQL = "INSERT INTO images  (user_id, image, image_length) VALUES "
             + " (?, ?, ?);";
     private static final String DELETE_IMAGE_SQL = "delete from images where id = ?;";
-    private static final String UPDATE_IMAGE_SQL = "update images set user_id = ?,image= ?, image_length= ? where id = ?;";
+    private static final String UPDATE_IMAGE_SQL = "update images set image= ?, image_length= ? where id = ?;";
 
     @Override
     public PatientImage get(Double id) {
@@ -60,11 +60,24 @@ public class PatientImageDao implements IDao<PatientImage> {
         }
         return patientImage;
     }
-    // TODO update if already saved
-    public PatientImage save(Double userId, File imageFile) {
+
+    public PatientImage getByPatientId(Double patientId){
+        PatientImage patientImage = null;
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement preparedStatement = conn.prepareStatement(SELECT_IMAGE_BY_USER_ID_SQL)) {
+            preparedStatement.setDouble(1,patientId);
+            ResultSet rs = preparedStatement.executeQuery();
+            patientImage = getPatientImageFromResultSet(rs);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return patientImage;
+    }
+
+    public PatientImage save(Double patientId, File imageFile) {
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement preparedStatement = conn.prepareStatement(INSERT_IMAGE_SQL)) {
-            preparedStatement.setDouble(1,userId);
+            preparedStatement.setDouble(1,patientId);
             InputStream imageInputStream = new FileInputStream(imageFile);
             preparedStatement.setBinaryStream(2, imageInputStream, (int) imageFile.length());
             preparedStatement.setInt(3, (int) imageFile.length());
@@ -79,12 +92,31 @@ public class PatientImageDao implements IDao<PatientImage> {
         }
         return null;
     }
-    // TODO update if already saved
 
-    public PatientImage save(Double userId, InputStream imageInputStream, int imageFileLength) {
+    public PatientImage newImage(Double patientId, File imageFile){
+        PatientImage patientImage = this.getByPatientId(patientId);
+        if(patientImage==null){
+            patientImage = this.save(patientId, imageFile);
+        } else {
+            patientImage = this.update(patientImage, imageFile);
+        }
+        return patientImage;
+    }
+
+    public PatientImage newImage(Double patientId, InputStream imageInputStream, int imageFileLength){
+        PatientImage patientImage = this.getByPatientId(patientId);
+        if(patientImage==null){
+            patientImage = this.save(patientId, imageInputStream, imageFileLength);
+        } else {
+            patientImage = this.update(patientImage, imageInputStream, imageFileLength);
+        }
+        return patientImage;
+    }
+
+    public PatientImage save(Double patientId, InputStream imageInputStream, int imageFileLength) {
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement preparedStatement = conn.prepareStatement(INSERT_IMAGE_SQL)) {
-            preparedStatement.setDouble(1,userId);
+            preparedStatement.setDouble(1,patientId);
             preparedStatement.setBinaryStream(2, imageInputStream, imageFileLength);
             preparedStatement.executeUpdate();
             imageInputStream.close();
@@ -98,18 +130,36 @@ public class PatientImageDao implements IDao<PatientImage> {
         return null;
     }
 
-    @Override
-    public boolean update(PatientImage patientImage, String[] params) {
+    public PatientImage update(PatientImage patientImage, InputStream imageInputStream, int imageFileLength) {
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement preparedStatement = conn.prepareStatement(UPDATE_IMAGE_SQL)) {
-            preparedStatement.setDouble(1,patientImage.getUserId());
-            preparedStatement.setBlob(2,patientImage.getImage());
-            preparedStatement.setDouble(3,patientImage.getId());
-            return preparedStatement.executeUpdate()>0;
+            preparedStatement.setBinaryStream(1,imageInputStream);
+            preparedStatement.setDouble(2,imageFileLength);
+            preparedStatement.setDouble(3, patientImage.getId());
+            preparedStatement.executeUpdate();
         }catch (SQLException e) {
             System.out.println(e.getMessage());
+            return null;
         }
-        return false;
+        patientImage.setImage(imageInputStream);
+        patientImage.setLength(imageFileLength);
+        return patientImage;
+    }
+
+    public PatientImage update(PatientImage patientImage, File imageFile) {
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement preparedStatement = conn.prepareStatement(UPDATE_IMAGE_SQL)) {
+            InputStream imageInputStream = new FileInputStream(imageFile);
+            preparedStatement.setBinaryStream(1, imageInputStream, (int) imageFile.length());
+            preparedStatement.setDouble(2, (int) imageFile.length());
+            preparedStatement.setDouble(3, patientImage.getId());
+            preparedStatement.executeUpdate();
+            patientImage.setImage(imageInputStream);
+            patientImage.setLength((int) imageFile.length());
+        }catch (SQLException | FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        return patientImage;
     }
 
     @Override
@@ -128,7 +178,6 @@ public class PatientImageDao implements IDao<PatientImage> {
         if (!rs.next()){
             return null;
         }
-        System.out.println(rs.toString());
         double image_id = rs.getDouble("id");
         double user_id = rs.getDouble("user_id");
         InputStream image = rs.getBinaryStream("image");

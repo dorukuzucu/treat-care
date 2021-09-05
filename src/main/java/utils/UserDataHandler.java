@@ -66,7 +66,7 @@ public class UserDataHandler {
 
     public void savePatientImage() {
         PatientImageDao patientImageDao = new PatientImageDao();
-        PatientImage savedPatientImage = patientImageDao.save(this.activePatient.getId(), this.activePatientImage.getImage(), this.activePatientImage.getLength());
+        PatientImage savedPatientImage = patientImageDao.newImage(this.activePatient.getId(), this.activePatientImage.getImage(), this.activePatientImage.getLength());
         this.activePatientImage = savedPatientImage;
     }
 
@@ -75,7 +75,7 @@ public class UserDataHandler {
         double imageId = this.getActivePatientImage().getId();
 
         for (Map.Entry<PointEnum, ImagePoint> point : this.imagePointHashMap.entrySet()){
-            imagePointDao.save(imageId, point.getKey().toString(), point.getValue().getPointX(), point.getValue().getPointY());
+            imagePointDao.newImagePoint(imageId, point.getKey().toString(), point.getValue().getPointX(), point.getValue().getPointY());
         }
     }
 

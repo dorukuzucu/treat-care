@@ -73,7 +73,7 @@ public class PatientDao implements IDao<Patient> {
         long insertedId = preparedStatement.getGeneratedKeys().getLong(1);
         return this.get((double) insertedId);
     }
-    @Override
+
     public boolean update(Patient patient, String[] params) {
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement preparedStatement = conn.prepareStatement(UPDATE_PATIENT_SQL)) {
