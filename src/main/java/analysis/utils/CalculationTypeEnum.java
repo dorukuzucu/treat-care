@@ -3,5 +3,43 @@ package main.java.analysis.utils;
 public enum CalculationTypeEnum {
     SNA,
     SNB,
-    SN_GO_GN;
+    ANB,
+    SN_GO_GN,
+    SADDLE,
+    ARTICULAR_ANGLE,
+    GONIAL_ANGLE,
+    FMA,
+    Y_AXIS_ANGLE,
+    U1_SN,
+    U1_FH,
+    U1_NA,
+    ANTERIOR_CRANIAL_BASE,
+    U1_NA_DISTANCE,
+    IMPA,
+    FMIA,
+    L1_NB,
+    L1_NB_DISTANCE,
+    FACIAL_DEPTH,
+    FACIAL_AXIS,
+    FACIAL_TAPER,
+    MANDIBULAR_PLANE,
+    MANDIBULAR_ARC,
+    OVERJET,
+    OVERBITE,
+    MAXILLARY_DEPTH,
+    MAXILARY_HEIGHT,
+    CRANIAL_DEFLECTION_ANGLE,
+    CORPUS_LENGHT,
+    PTV_U6,
+    UPPER_LIP_TO_S_LINE,
+    LOWER_LIP_TO_S_LINE,
+    MOLAR_RELATION,
+    L1_NA,
+    L1_NA_DISTANCE;
+
+
+
+
+
+
 }

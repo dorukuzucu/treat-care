@@ -1,6 +1,9 @@
 package main.java.analysis.calculations;
 
+//import main.java.analysis.results.DrawStraightLineResult;
+import main.java.analysis.results.FourPointAngleResult;
 import main.java.analysis.results.IResult;
+import main.java.analysis.results.LineResult;
 import main.java.database.entities.ImagePoint;
 import main.java.utils.PointEnum;
 

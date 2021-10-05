@@ -33,7 +33,8 @@ public class NewPatientController {
 
     public void initialize(){
         this.genderComboBox.getItems().addAll("Male","Female");
-        this.raceComboBox.getItems().addAll("Beyaz Irk","Afrikalı","Asyalı");
+        this.raceComboBox.getItems().addAll("Caucasian","African","White");
+
     }
 
     private Boolean inputDataIsValid(){

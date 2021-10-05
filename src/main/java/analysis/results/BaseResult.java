@@ -9,6 +9,7 @@ abstract class BaseResult implements IResult{
 
     @Override
     public String toString() {
-        return Double.toString(this.result);
+        return Double.toString
+                (this.result);
     }
 }

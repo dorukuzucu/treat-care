@@ -9,15 +9,20 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainFrame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="877.0" prefWidth="1337.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controllers.DrawingController">
+<AnchorPane fx:id="mainFrame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="877.0" prefWidth="1443.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controllers.DrawingController">
    <children>
-      <ScrollPane fx:id="scrollCephImage" layoutX="390.0" layoutY="47.0" prefHeight="825.0" prefWidth="813.0">
-         <content>
-            <ImageView fx:id="cephImageView" fitHeight="807.0" fitWidth="794.0" pickOnBounds="true" preserveRatio="true" />
-         </content>
-      </ScrollPane>
+      <AnchorPane fx:id="cephImageAnchor" layoutX="390.0" layoutY="47.0" prefHeight="817.0" prefWidth="828.0">
+         <children>
+            <ScrollPane fx:id="scrollCephImage" prefHeight="803.0" prefWidth="811.0">
+               <content>
+                  <ImageView fx:id="cephImageView" fitHeight="796.0" fitWidth="802.0" pickOnBounds="true" preserveRatio="true" />
+               </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
       <Button fx:id="bImage" layoutX="390.0" mnemonicParsing="false" onAction="#BrowseImage" prefHeight="32.0" prefWidth="62.0">
          <graphic>
             <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
@@ -36,78 +41,113 @@
             <Font size="22.0" />
          </font>
       </Button>
-      <Button layoutX="709.0" mnemonicParsing="false" style="-fx-background-color: #8915C8;" text="Hide" textFill="WHITE">
+      <Button fx:id="hideLabel" layoutX="709.0" mnemonicParsing="false" onAction="#hideAllPointsAndLabels" style="-fx-background-color: #8915C8;" text="Hide" textFill="WHITE">
          <font>
             <Font size="22.0" />
          </font>
       </Button>
-      <Button fx:id="saveButton" layoutX="790.0" mnemonicParsing="false" style="-fx-background-color: #8915C8;" text="Save" textFill="WHITE" onAction="#saveButtonClicked">
+      <Button fx:id="saveButton" layoutX="790.0" mnemonicParsing="false" onAction="#saveButtonClicked" style="-fx-background-color: #8915C8;" text="Save" textFill="WHITE">
          <font>
             <Font size="22.0" />
          </font>
       </Button>
-      <ComboBox fx:id="analyseComboBox" layoutX="239.0" layoutY="474.0" prefWidth="150.0" promptText="Analysis" />
-      <ListView fx:id="anatomicalPoints" layoutX="238.0" layoutY="46.0" prefHeight="419.0" prefWidth="152.0" />
-      <Label layoutX="239.0" layoutY="17.0" prefHeight="32.0" prefWidth="150.0" text="Selected Points">
+      <ComboBox fx:id="analyseComboBox" layoutX="1234.0" layoutY="271.0" prefWidth="150.0" promptText="Analysis" />
+      <ListView fx:id="anatomicalPoints" layoutX="200.0" layoutY="46.0" prefHeight="419.0" prefWidth="190.0" />
+      <Label layoutX="224.0" layoutY="14.0" prefHeight="32.0" prefWidth="150.0" text="Selected Points">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Label layoutX="1226.0" layoutY="184.0" text="Magnification">
+      <Slider fx:id="rulerSlider" blockIncrement="1.0" layoutX="1252.0" layoutY="162.0" max="20.0" min="1.0" onMouseReleased="#ChanceRulerSlider" prefHeight="14.0" prefWidth="112.0" value="10.0" />
+      <Slider fx:id="ZoomSlider" blockIncrement="0.1" layoutX="233.0" layoutY="811.0" max="3.0" min="1.0" onMouseReleased="#ChanceZoomSlider" prefHeight="14.0" prefWidth="112.0" value="2.0" />
+      <Label layoutX="1229.0" layoutY="121.0" text="Ruler Distance">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Slider fx:id="rulerSlider" blockIncrement="1.0" layoutX="1246.0" layoutY="94.0" max="20.0" min="1.0" onMouseReleased="#ChanceRulerSlider" prefHeight="14.0" prefWidth="112.0" value="10.0" />
-      <Slider fx:id="magnificationSlider" blockIncrement="0.1" layoutX="1255.0" layoutY="225.0" max="2.0" min="1.0" onMouseReleased="#ChanceMagnificationSlider" prefHeight="14.0" prefWidth="112.0" value="1.1" />
-      <Label layoutX="1223.0" layoutY="53.0" text="Ruler Distance">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Label fx:id="rulerLabel" layoutX="1269.0" layoutY="117.0" prefHeight="30.0" prefWidth="80.0" text="10 mm">
+      <Label fx:id="rulerLabel" layoutX="1275.0" layoutY="185.0" prefHeight="30.0" prefWidth="80.0" text="10 mm">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="magnificationLabel" layoutX="1288.0" layoutY="248.0" prefHeight="30.0" prefWidth="62.0" text="1.1 ">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="1249.0" layoutY="164.0" prefHeight="26.0" prefWidth="101.0" text="(Default 1.1)">
+      <Label layoutX="1246.0" layoutY="101.0" prefHeight="26.0" prefWidth="125.0" text="(Default 10 mm)">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="1240.0" layoutY="33.0" prefHeight="26.0" prefWidth="125.0" text="(Default 10 mm)">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Label>
-      <Label fx:id="nameLastNameLabel" layoutX="65.0" layoutY="79.0" text="Name - Last name">
+      <Label fx:id="nameLastNameLabel" layoutX="15.0" layoutY="117.0" prefHeight="47.0" prefWidth="190.0" text="Name - Last name">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="birthDateLabel" layoutX="65.0" layoutY="109.0" text="Birth Date">
+      <Label fx:id="birthDateLabel" layoutX="16.0" layoutY="190.0" prefHeight="36.0" prefWidth="182.0" text="Birth Date">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="genderLabel" layoutX="65.0" layoutY="139.0" text="Gender">
+      <Label fx:id="genderLabel" layoutX="18.0" layoutY="154.0" prefHeight="36.0" prefWidth="131.0" text="Gender">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="raceLabel" layoutX="67.0" layoutY="175.0" text="Race">
+      <Label fx:id="raceLabel" layoutX="18.0" layoutY="255.0" prefHeight="36.0" prefWidth="112.0" text="Race">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="88.0" layoutY="33.0" prefHeight="32.0" prefWidth="101.0" text="PATIENT">
+      <Label layoutX="40.0" layoutY="72.0" prefHeight="45.0" prefWidth="131.0" text="PATIENT" textFill="#bf00ff" underline="true">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="nasionLabel" layoutX="154.0" layoutY="317.0" />
+      <Label fx:id="sellaLabel" layoutX="125.0" layoutY="382.0" />
+      <Label fx:id="orbitaleLabel" layoutX="146.0" layoutY="374.0" />
+      <Label fx:id="porionLabel" layoutX="189.0" layoutY="351.0" />
+      <Label fx:id="basionLabel" layoutX="175.0" layoutY="247.0" />
+      <Label fx:id="aLabel" layoutX="140.0" layoutY="410.0" />
+      <Label fx:id="bLabel" layoutX="116.0" layoutY="270.0" />
+      <Label fx:id="ansLabel" layoutX="183.0" layoutY="224.0" />
+      <Label fx:id="pnsLabel" layoutX="141.0" layoutY="279.0" prefHeight="17.0" prefWidth="27.0" />
+      <Label fx:id="mentonLabel" layoutX="132.0" layoutY="256.0" />
+      <Label fx:id="gnathionLabel" layoutX="74.0" layoutY="279.0" />
+      <Label fx:id="pogonionLabel" layoutX="175.0" layoutY="279.0" />
+      <Button fx:id="exportButton" layoutX="874.0" mnemonicParsing="false" onAction="#exportImage" style="-fx-background-color: #8915C8;" text="Export" textFill="WHITE">
          <font>
             <Font size="22.0" />
+         </font>
+      </Button>
+      <Label fx:id="ruler1Label" layoutX="111.0" layoutY="247.0" />
+      <Label fx:id="ruler2Label" layoutX="199.0" layoutY="224.0" />
+      <Label fx:id="gonionLabel" layoutX="51.0" layoutY="239.0" />
+      <Label fx:id="ramusLabel" layoutX="74.0" layoutY="240.0" />
+      <Label fx:id="articulareLabel" layoutX="132.0" layoutY="224.0" />
+      <Label fx:id="ptLabel" layoutX="127.0" layoutY="262.0" prefHeight="17.0" prefWidth="27.0" />
+      <AnchorPane fx:id="zoomAnchor" layoutX="116.0" layoutY="512.0" prefHeight="288.0" prefWidth="270.0">
+         <children>
+            <ImageView fx:id="zoomedImage" fitHeight="250.0" fitWidth="250.0" layoutX="10.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />
+            <Line fx:id="hLine" endX="103.0" layoutX="157.0" layoutY="144.0" scaleZ="0.5" startX="-147.0" />
+            <Line fx:id="vLine" endX="-83.0" endY="-138.0" layoutX="218.0" layoutY="157.0" scaleZ="0.5" startX="-83.0" startY="112.0" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="157.0" layoutY="800.0" prefHeight="35.0" prefWidth="65.0" text="Zoom">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="clearButton" layoutX="974.0" mnemonicParsing="false" onAction="#clearAll" style="-fx-background-color: #8915C8;" text="Clear All" textFill="WHITE">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
+      <Label fx:id="currentAgeLabel" layoutX="16.0" layoutY="222.0" prefHeight="35.0" prefWidth="182.0" text="Current Age">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="currentDateLabel" layoutX="1289.0" layoutY="6.0" prefHeight="36.0" prefWidth="150.0" text="Date" textFill="#8915c8">
+         <font>
+            <Font size="25.0" />
          </font>
       </Label>
    </children>

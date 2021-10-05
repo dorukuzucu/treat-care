@@ -1,7 +1,8 @@
 package main.java.analysis.calculations;
 
-import main.java.analysis.results.ThreePointAngleResult;
+import main.java.analysis.results.FourPointAngleResult;
 import main.java.analysis.results.IResult;
+import main.java.analysis.results.ThreePointAngleResult;
 import main.java.database.entities.ImagePoint;
 import main.java.analysis.utils.MathUtils;
 import main.java.utils.PointEnum;

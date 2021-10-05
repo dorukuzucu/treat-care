@@ -19,6 +19,7 @@ public class EntryController{
     @FXML
     private void callNewPatient(ActionEvent event) throws IOException {
         mainPaneStatic = mainPane;
+
         Pane view = PaneLoader.getInstance().getPane(PaneEnum.NEW_PATIENT);
         mainPane.setCenter(view);
    }

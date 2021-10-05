@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 public class GetCurrentTime {
     public static String now(){
         LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String formattedDateTime = now.format(format);
         return formattedDateTime;
     }

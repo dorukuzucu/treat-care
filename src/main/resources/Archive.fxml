@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="handleArchive" prefHeight="563.0" prefWidth="605.0" style="-fx-background-color: #8B5DAE;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controllers.ArchiveController">
+<AnchorPane fx:id="handleArchive" prefHeight="770.0" prefWidth="1217.0" style="-fx-background-color: #8B5DAE;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controllers.ArchiveController">
    <children>
-      <TableView fx:id="patientTableView" layoutX="28.0" layoutY="84.0" prefHeight="533.0" prefWidth="1054.0">
+      <TableView fx:id="patientTableView" layoutX="93.0" layoutY="107.0" prefHeight="533.0" prefWidth="1054.0">
          <columns>
             <TableColumn fx:id="idColumn" prefWidth="62.0" text="ID" />
             <TableColumn fx:id="nameColumn" prefWidth="500.0" text="Name" />
@@ -18,10 +19,15 @@
             <TableColumn fx:id="genderColumn" prefWidth="70.0" text="Gender" />
          </columns>
       </TableView>
-      <Label layoutX="472.0" layoutY="20.0" prefHeight="36.0" prefWidth="102.0" text="ARCHIVE" textFill="WHITE">
+      <Label layoutX="548.0" layoutY="33.0" prefHeight="49.0" prefWidth="154.0" text="ARCHIVE" textFill="WHITE">
          <font>
-            <Font size="25.0" />
+            <Font size="32.0" />
          </font>
       </Label>
+      <Button layoutX="548.0" layoutY="651.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="184.0" text="Clear Patient">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -25,6 +25,8 @@ public class PaneLoader {
         this.addPane(PaneEnum.ENTRY, "/Entry.fxml");
         this.addPane(PaneEnum.NEW_PATIENT, "/NewPatient.fxml");
         //TODO: Parent loader, this.addPane(PaneEnum.WRONG_EXTENSION, readFxmlToPane("/WrongExtensionAlert.fxml"));
+
+        System.out.println(paneHashMap) ;
     }
 
     public void addPane(PaneEnum name, String panePath){

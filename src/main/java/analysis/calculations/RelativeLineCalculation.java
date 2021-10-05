@@ -1,28 +1,30 @@
 package main.java.analysis.calculations;
 
 import main.java.analysis.results.FourPointAngleResult;
-import main.java.analysis.results.LineResult;
+import main.java.analysis.results.RelativeLineResult;
+import main.java.analysis.utils.MathUtils;
 import main.java.controllers.DrawingController;
 import main.java.database.entities.ImagePoint;
-import main.java.analysis.utils.MathUtils;
 import main.java.utils.PointEnum;
 
 import java.util.HashMap;
 
-public class LineCalculation implements ICalculation {
+public class RelativeLineCalculation  implements ICalculation{
 
     PointEnum ruler1type;
     PointEnum ruler2type;
     PointEnum startPointType;
     PointEnum endPointType;
+    boolean vertical;   // if not horizontal
 
 
 
-    public LineCalculation(PointEnum ruler1type , PointEnum ruler2type,PointEnum startPointType, PointEnum endPointType){
-            this.ruler1type = ruler1type;
-            this.ruler2type = ruler2type;
-            this.startPointType = startPointType;
-            this.endPointType = endPointType;
+    public RelativeLineCalculation(PointEnum ruler1type , PointEnum ruler2type,PointEnum startPointType, PointEnum endPointType,boolean vertical){
+        this.ruler1type = ruler1type;
+        this.ruler2type = ruler2type;
+        this.startPointType = startPointType;
+        this.endPointType = endPointType;
+        this.vertical = vertical;
     }
 
     @Override
@@ -31,7 +33,7 @@ public class LineCalculation implements ICalculation {
     }
 
     @Override
-    public LineResult  calculate(HashMap<PointEnum, ImagePoint> points) {
+    public RelativeLineResult calculate(HashMap<PointEnum, ImagePoint> points) {
         if(!this.isAvailable(points)){
             return null;
         }
@@ -45,16 +47,20 @@ public class LineCalculation implements ICalculation {
         double a2 = ruler2.getPointX();
         double b2 = ruler2.getPointY();
 
-        double x1 = startPoint.getPointX();
-        double y1 = startPoint.getPointY();
-        double x2 = endPoint.getPointX();
-        double y2 = endPoint.getPointY();
+        double distance = 0;
+    if(vertical == true)
+    {
+        distance = startPoint.getPointY() - endPoint.getPointY();
+    }
+    else
+    {
+        distance = startPoint.getPointX() - endPoint.getPointX();
+    }
 
-        double distance = MathUtils.distance(x1, y1, x2, y2);
         double ruler_distance = MathUtils.distance(a1,b1,a2,b2);
-        distance = distance * DrawingController.rulerSliderValue / ruler_distance;
+        distance= distance * DrawingController.rulerSliderValue / ruler_distance;
 
         distance = Math.floor(distance * 10)/10;
-        return new LineResult(ruler1,ruler2,startPoint, endPoint, distance);
+        return new RelativeLineResult(ruler1,ruler2,startPoint, endPoint, distance,vertical);
     }
 }

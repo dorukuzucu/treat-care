@@ -1,11 +1,39 @@
 package main.java.analysis.utils;
 
+import main.java.analysis.calculations.LineCalculation;
+import main.java.analysis.calculations.PerpendicularToLineCalculation;
+import main.java.analysis.results.PerpendicularToLineResult;
+import main.java.controllers.DrawingController;
 import main.java.database.entities.ImagePoint;
+import main.java.utils.PointEnum;
+
+import java.rmi.MarshalException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 
 //TODO: handle edge conditions.(division with 0 etc)
 public class MathUtils {
-    public static double distance(double x1, double y1, double x2, double y2){
+
+
+     public static double perpendicularDistance(double x1,double y1,double x2,double y2,double x3,double y3)
+    {
+        double px=x2-x1;
+        double py=y2-y1;
+        double temp=(px*px)+(py*py);
+        double u=((x3 - x1) * px + (y3 - y1) * py) / (temp);
+
+        double x = x1 + u * px;
+        double y = y1 + u * py;
+
+        double dx = x - x3;
+        double dy = y - y3;
+        double dist = Math.sqrt(dx*dx + dy*dy);
+        return dist;
+
+    }
+
+    public static double distance (double x1, double y1, double x2, double y2){
         return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
     }
 
@@ -16,8 +44,11 @@ public class MathUtils {
                 Math.pow(centerY-y2,2));
         double p1p2 = Math.sqrt(Math.pow(x2-x1,2)+
                 Math.pow(y2-y1,2));
-        return Math.acos((p2c*p2c+p1c*p1c-p1p2*p1p2)/(2*p2c*p1c));
+
+        double oneDecimal = Math.floor(Math.acos((p2c*p2c+p1c*p1c-p1p2*p1p2)/(2*p2c*p1c)) * 57.3*10) /10;
+        return oneDecimal;
     }
+
 
     public static double angle(ImagePoint firstVectorStartPoint, ImagePoint firstVectorEndPoint, ImagePoint secondVectorStartPoint, ImagePoint secondVectorEndPoint){
         double firstVectorX = firstVectorEndPoint.getPointX() - firstVectorStartPoint.getPointX();
@@ -28,6 +59,9 @@ public class MathUtils {
         double dotProduct = firstVectorX*secondVectorX + firstVectorY*secondVectorY;
         double length = Math.sqrt((firstVectorX*firstVectorX+firstVectorY*firstVectorY)*
                 (secondVectorX*secondVectorX+secondVectorY*secondVectorY));
-        return Math.acos(dotProduct/length);
+        double oneDecimal = Math.floor(Math.acos(dotProduct/length) * 57.3 * 10)/10;
+        return oneDecimal;
     }
+
+
 }

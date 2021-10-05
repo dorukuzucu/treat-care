@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="913.0" prefWidth="1238.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controllers.DrawingController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="800.0" layoutX="418.0" layoutY="33.0" onMouseMoved="#onMouseMoved" pickOnBounds="true" preserveRatio="true" fx:id="xrayImage">
+         <image>
+            <Image url="@threatCare.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="zoomedImage" fitHeight="250.0" fitWidth="250.0" layoutX="103.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>
