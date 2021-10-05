@@ -13,9 +13,6 @@ import java.awt.*;
 
 public class Runner extends Application {
 
-
-
-
     @Override
     public void start(Stage primaryStage) throws Exception{
        Class.forName("org.sqlite.JDBC");
@@ -23,24 +20,14 @@ public class Runner extends Application {
         DatabaseCreator creator = new DatabaseCreator();
         creator.createAllTables();
 
-        Parent root = FXMLLoader.load(getClass().getResource("../resources/Entry.fxml"));
-
-
-
+        Parent root = FXMLLoader.load(getClass().getResource("/Entry.fxml"));
         primaryStage.setTitle("TreatCare Software Systems");
-         Scene scene = new Scene(root,1200,950);
+        Scene scene = new Scene(root,1200,950);
         primaryStage.setScene(scene);
         primaryStage.setMinWidth(1200);
         primaryStage.setMinHeight(950);
         primaryStage.setMaximized(true);
-        primaryStage.setOnCloseRequest( e -> SystemClose());
         primaryStage.show();
-
-
-    }
-
-    private void SystemClose(){
-       // System.exit(0);           BURASI AÇIKKEN NEDENSE KASIYOR??
     }
 
     public static void main(String[] args){
