@@ -40,9 +40,9 @@ public enum PointEnum {
 
     ST_GLABELLA("Soft Tissue Glabella",Color.WHITE),
     ST_NASION("Soft Tissue Nasion",Color.WHITE),
-    BRIDGE_OF_NOSE("Bridge of Nose",Color.WHITE),
+    BRIDGE_OF_NOSE("Nose bridge",Color.WHITE),
     TIP_OF_NOSE("Tip of Nose",Color.WHITE),
-    MIDPOINT_OF_COLUMELLA("Midpoint of Columella,Color.WHITE",Color.WHITE),
+    MIDPOINT_OF_COLUMELLA("Midpoint of Columella",Color.WHITE),
     SUBNASALE("Subnasale",Color.WHITE),
     ST_A_POINT("Soft Tissue A point",Color.WHITE),
     UPPER_LIP("Most forward position of upper Lip",Color.WHITE),

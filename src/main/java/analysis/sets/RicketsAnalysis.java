@@ -23,7 +23,7 @@ public class RicketsAnalysis extends BaseAnalysis {
         this.calculations.put(CalculationTypeEnum.MAXILARY_HEIGHT, new VerticalLineToThreePointAngleCalculation(PointEnum.PORION, PointEnum.ORBITALE, PointEnum.PT, PointEnum.NASION, PointEnum.A_POINT));
         this.calculations.put(CalculationTypeEnum.L1_NA,new FourPointAngleCalculation(PointEnum.NASION, PointEnum.A_POINT, PointEnum.LOWER_INCISOR_CROWN_TIP, PointEnum.LOWER_INCISOR_ROOT_TIP));
         this.calculations.put(CalculationTypeEnum.L1_NA_DISTANCE,new PerpendicularToLineCalculation(PointEnum.RULER_1,PointEnum.RULER_2,PointEnum.NASION, PointEnum.A_POINT , PointEnum.LOWER_INCISOR_CROWN_TIP));
-
+        this.calculations.put(CalculationTypeEnum.CONVEXITY,new PerpendicularToLineCalculation(PointEnum.RULER_1,PointEnum.RULER_2,PointEnum.NASION, PointEnum.POG , PointEnum.A_POINT));
 
     }
 }

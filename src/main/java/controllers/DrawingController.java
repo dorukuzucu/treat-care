@@ -356,8 +356,6 @@ public class DrawingController {
                     int listIndex = this.anatomicalPoints.getSelectionModel().getSelectedIndex();
                     if (listIndex <= pointList.size() - 2)  //
                     {
-                        System.out.println(mouseEvent.getX());
-                        System.out.println(mouseEvent.getY());
                         PointEnum selectedPoint = this.anatomicalPoints.getSelectionModel().getSelectedItem();
                         addPoint(selectedPoint, mouseEvent.getX(), mouseEvent.getY());
                         mainFrame.getChildren().add(displayedCircle.get(listIndex));

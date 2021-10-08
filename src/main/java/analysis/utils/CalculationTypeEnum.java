@@ -35,7 +35,8 @@ public enum CalculationTypeEnum {
     LOWER_LIP_TO_S_LINE,
     MOLAR_RELATION,
     L1_NA,
-    L1_NA_DISTANCE;
+    L1_NA_DISTANCE,
+    CONVEXITY;
 
 
 
