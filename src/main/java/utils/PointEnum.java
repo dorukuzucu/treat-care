@@ -54,35 +54,26 @@ public enum PointEnum {
     ST_POGONION("Soft Tissue Pogonion",Color.WHITE),
     ST_GNATHION("Soft Tissue Gnathion",Color.WHITE),
     ST_MENTON("Soft Tissue Menton",Color.WHITE),//45
-    CONTROL_BUTTON("Finished");
+    CONTROL_BUTTON("Finished",Color.WHITE);
 
     private String pointType;
     private String abbreviation;
-    private int xOffset;
-    private  int yOffset;
+    private int xOffset = 0;
+    private  int yOffset = 0;
     private Color color;
 
-    PointEnum(String s) //finish Butonu Sadece yazı içerecek
-    {
-        this.pointType = s;
-    }
-
-    PointEnum(String s,Color color){     // Bazı Pointlerde Sadece yazı ve renk olacak
-        this.pointType = s;
+    PointEnum(String pointType,Color color){     // Bazı Pointlerde Sadece yazı ve renk olacak
+        this.pointType = pointType;
         this.color = color;
     }
 
-
-    PointEnum(String s , String abbreviation,int xOffset,int yOffset, Color color) {   //Bazısında Hepsi olacak
-        this.pointType = s;
+    PointEnum(String pointType, String abbreviation, int xOffset, int yOffset, Color color) {   //Bazısında Hepsi olacak
+        this.pointType = pointType;
         this.abbreviation = abbreviation;
         this.xOffset = xOffset;
         this.yOffset = yOffset;
         this.color = color;
     }
-
-
-
 
     public static PointEnum fromString(String s){
         for (PointEnum pointEnum : PointEnum.values()) {
@@ -95,6 +86,26 @@ public enum PointEnum {
 
     @Override
     public String toString() {
+        return pointType;
+    }
+
+    public int getOffsetX() {
+        return xOffset;
+    }
+
+    public int getOffsetY() {
+        return yOffset;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public String getAbbreviation() {
+        return abbreviation;
+    }
+
+    public String getPointType() {
         return pointType;
     }
 }
