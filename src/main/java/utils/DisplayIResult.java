@@ -14,10 +14,7 @@ import javafx.stage.Stage;
 import main.java.analysis.results.IResult;
 import main.java.analysis.utils.CalculationTypeEnum;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class DisplayIResult {
@@ -49,14 +46,17 @@ public class DisplayIResult {
         TableColumn<List<String>, String> analysisName = new TableColumn<>("Calculation");
         analysisName.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().get(0)));
-
         TableColumn<List<String>, String> result = new TableColumn<>("Result");
         result.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().get(1)));
 
+        analysisName.setSortType(TableColumn.SortType.ASCENDING);
         tableView.getColumns().addAll(analysisName,result);
+
         ObservableList<List<String>> tableData = FXCollections.observableArrayList(resultsString);
         tableView.setItems(tableData);
+        tableView.getSortOrder().add(analysisName);
+
     }
 
     private List<List<String>> resultToStringArray(HashMap<CalculationTypeEnum, IResult> results){
