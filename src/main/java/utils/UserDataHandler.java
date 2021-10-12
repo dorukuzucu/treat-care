@@ -45,7 +45,7 @@ public class UserDataHandler {
         this.imagePointHashMap.put(name, imagePoint);
     }
 
-    public void remmoveImagePoint(PointEnum pointEnum){
+    public void removeImagePoint(PointEnum pointEnum){
         if(!this.imagePointHashMap.containsKey(pointEnum)){
             return;
         }
@@ -111,6 +111,21 @@ public class UserDataHandler {
             return;
         }
         this.getPatientImagePointsFromDB();
+    }
+
+    public void deleteAllPatientData(Patient patient){
+        PatientDao patientDao = new PatientDao();
+        PatientImageDao patientImageDao = new PatientImageDao();
+        ImagePointDao imagePointDao = new ImagePointDao();
+
+        PatientImage patientImage = patientImageDao.getByPatient(patient);
+        List<ImagePoint> imagePoints = imagePointDao.getByPatientImage(patientImage);
+
+        for(ImagePoint imagePoint : imagePoints){
+            imagePointDao.delete(imagePoint);
+        }
+        patientImageDao.delete(patientImage);
+        patientDao.delete(patient);
     }
 
     public void clearData(){

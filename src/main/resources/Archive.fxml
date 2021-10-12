@@ -24,7 +24,7 @@
             <Font size="32.0" />
          </font>
       </Label>
-      <Button layoutX="548.0" layoutY="651.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="184.0" text="Clear Patient">
+      <Button fx:id="clearPatientButton" onAction="#clearPatientButtonClicked" layoutX="548.0" layoutY="651.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="184.0" text="Clear Patient">
          <font>
             <Font size="20.0" />
          </font>
