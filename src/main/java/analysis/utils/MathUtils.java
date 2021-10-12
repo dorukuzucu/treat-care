@@ -49,7 +49,7 @@ public class MathUtils {
         return oneDecimal;
     }
 
-
+    //TODO remove ImagePoint cohesion
     public static double angle(ImagePoint firstVectorStartPoint, ImagePoint firstVectorEndPoint, ImagePoint secondVectorStartPoint, ImagePoint secondVectorEndPoint){
         double firstVectorX = firstVectorEndPoint.getPointX() - firstVectorStartPoint.getPointX();
         double firstVectorY = firstVectorEndPoint.getPointY() - firstVectorStartPoint.getPointY();

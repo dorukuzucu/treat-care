@@ -37,10 +37,4 @@ public enum CalculationTypeEnum {
     L1_NA,
     L1_NA_DISTANCE,
     CONVEXITY;
-
-
-
-
-
-
 }

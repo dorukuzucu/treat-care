@@ -8,10 +8,7 @@ import main.java.database.entities.Patient;
 import main.java.database.entities.PatientImage;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public class UserDataHandler {
     private static UserDataHandler instance = null;
@@ -48,6 +45,13 @@ public class UserDataHandler {
         this.imagePointHashMap.put(name, imagePoint);
     }
 
+    public void remmoveImagePoint(PointEnum pointEnum){
+        if(!this.imagePointHashMap.containsKey(pointEnum)){
+            return;
+        }
+        this.imagePointHashMap.remove(pointEnum);
+    }
+
     public HashMap<PointEnum, ImagePoint> getImagePointHashMap() {
         return imagePointHashMap;
     }
@@ -73,7 +77,10 @@ public class UserDataHandler {
     public void saveImagePoints() {
         ImagePointDao imagePointDao = new ImagePointDao();
         double imageId = this.getActivePatientImage().getId();
-
+        List<ImagePoint> imagePointList = imagePointDao.getByPatientImage(this.activePatientImage);
+        for(ImagePoint imagePoint : imagePointList){
+            imagePointDao.delete(imagePoint);
+        }
         for (Map.Entry<PointEnum, ImagePoint> point : this.imagePointHashMap.entrySet()){
             imagePointDao.newImagePoint(imageId, point.getKey().toString(), point.getValue().getPointX(), point.getValue().getPointY());
         }

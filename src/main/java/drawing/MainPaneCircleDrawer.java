@@ -1,8 +1,7 @@
-package main.java.panedrawers;
+package main.java.drawing;
 
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -16,10 +15,12 @@ import main.java.utils.UserDataHandler;
 
 
 //TODO HANDLE ADDING TO AND REMOVING FROM USER DATA SCENERIOS
+//TODO limit class only for drawing and hold data in a manager class
+//TODO Split line and label drawing to different classes
 public class MainPaneCircleDrawer {
     private final AnchorPane mainPane;
-    private final double xShift;
-    private final double yShift;
+    private double xShift;
+    private double yShift;
     private final HashMap<PointEnum, Circle> points = new HashMap<>();
     private final HashMap<PointEnum, Label> labels = new HashMap<>();
     private final UserDataHandler userDataHandler = UserDataHandler.getInstance();
@@ -29,6 +30,7 @@ public class MainPaneCircleDrawer {
         this.xShift = xShift;
         this.yShift = yShift;
     }
+
 
     public void drawPointAt(PointEnum selectedPoint, double x, double y) {
         //TODO remove point if same id exists
@@ -93,7 +95,7 @@ public class MainPaneCircleDrawer {
         Circle oldCircle = this.points.get(point);
         this.mainPane.getChildren().remove(oldCircle);
         this.points.remove(point);
-
+        userDataHandler.getImagePointHashMap().remove(point);
         this.removeLabel(point);
     }
 
@@ -118,11 +120,13 @@ public class MainPaneCircleDrawer {
     }
 
     public void removeAllPoints(){
+        List<PointEnum> pointsToRemove = new ArrayList<>();
         for (Map.Entry<PointEnum, Circle> point : this.points.entrySet()) {
-            this.removePoint(point.getKey());
+            pointsToRemove.add(point.getKey());
         }
-
-        this.removeAllLabels();
+        for (PointEnum point : pointsToRemove){
+            this.removePoint(point);
+        }
     }
 
     public void hideAllPoints(){

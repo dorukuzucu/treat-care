@@ -29,7 +29,7 @@ import main.java.analysis.utils.CalculationTypeEnum;
 import main.java.database.dao.PatientImageDao;
 import main.java.database.entities.Patient;
 import main.java.database.entities.PatientImage;
-import main.java.panedrawers.MainPaneCircleDrawer;
+import main.java.drawing.MainPaneCircleDrawer;
 import main.java.utils.GetCurrentTime;
 import main.java.utils.PointEnum;
 import main.java.utils.DisplayIResult;
@@ -118,7 +118,7 @@ public class DrawingController {
     private Line hLine;
 
 
-    private ArrayList<Circle> displayedCircle;   // Sen bunları galiba değiştirirsin bu yüzden Drawlinebetweenpoints metodu da modifiye edilecek
+    private ArrayList<Circle> displayedCircle;
     private final HashMap<PointEnum, Circle> points = new HashMap<>();
     ArrayList<PointEnum> pointList = new ArrayList<>();
 
@@ -143,13 +143,7 @@ public class DrawingController {
 
     @FXML
     public void clearAll() {
-
-        this.mainPaneCircleDrawer.removeAllLabels();
-        for (Circle circle : displayedCircle) {
-            circle = null;     //If allocation is lost ,gives index error
-        }
-        points.clear();
-        mainFrame.getChildren().removeIf(Circle.class::isInstance);
+        this.mainPaneCircleDrawer.removeAllPoints();
         mainFrame.getChildren().removeIf(Path.class::isInstance);
         anatomicalPoints.getSelectionModel().select(0);
     }
@@ -160,15 +154,17 @@ public class DrawingController {
     }
 
     public void initialize() {
-        this.mainPaneCircleDrawer = new MainPaneCircleDrawer(this.mainFrame,
-                (this.anatomicalPoints.getLayoutX() + this.anatomicalPoints.getWidth()),
-                this.anatomicalPoints.getLayoutY());
         hLine.setVisible(false);
         vLine.setVisible(false);
+        this.mainPaneCircleDrawer = new MainPaneCircleDrawer(this.mainFrame,
+                //(this.anatomicalPoints.getLayoutX() + this.anatomicalPoints.getWidth()),
+                390,
+                this.anatomicalPoints.getLayoutY());
 
         rulerSliderValue = rulerSlider.getValue();
         this.setPatientInfoLabels();
         this.displayPointList();
+
         this.displayAnalysis();
 
         cephImageView.setOnMouseEntered(e -> {
@@ -227,8 +223,7 @@ public class DrawingController {
             }
         });
 
-        cephImageView.setOnMouseClicked(mouseEvent ->
-        {
+        cephImageView.setOnMouseClicked(mouseEvent -> {
             if (cephImageView.getImage() != null) {
                 int listIndex = this.anatomicalPoints.getSelectionModel().getSelectedIndex();
                 PointEnum selectedPoint = this.anatomicalPoints.getSelectionModel().getSelectedItem();
@@ -585,7 +580,7 @@ public class DrawingController {
 
             //Sen neden yazmadın dersen inşa edeceğin mimariye uymayabilir diye ben yapmak istemedim.
 
-            mainFrame.getChildren().removeIf(Path.class::isInstance);  // clear before to avoid multiple path creating
+            mainFrame.getChildren().removeIf(Path.class::isInstance);  // avoid multiple path creating
             mainFrame.getChildren().addAll(drawLineBetweenPointsExtended(2, 3, 300), // 2 -Sella  3 - Nasion
                     drawLineBetweenPointsExtended(13, 14, 300),  // 13-Menton 14Gonion
                     drawLineBetweenPointsExtended(24, 27, 300), // 24 -OCCLUSAL_PLANE_INCISOR_EDGE 27 -LOWER_MOLAR_MESIAL_TIP
@@ -604,7 +599,7 @@ public class DrawingController {
             );
         }
         if (selectedAnalysis.toString() == "RICKETS") {
-            mainFrame.getChildren().removeIf(Path.class::isInstance);  // clear before to avoid multiple path creating
+            mainFrame.getChildren().removeIf(Path.class::isInstance);  // to avoid multiple path creating
 
             mainFrame.getChildren().addAll(
                     drawLineBetweenPointsExactDistance(34, 43),  //34 - TIP_OF_NOSE , 43 - ST_pogonion
@@ -622,6 +617,7 @@ public class DrawingController {
                     drawObliqueLine(14, 13, 2, 11, 17) // 14 - gonion ,13 menton 2-Nasion , 11 - POG , 17 - PT
             );
         }
+
         AnalysisFactory analysisFactory = new AnalysisFactory();
         IAnalysisSet analysis = analysisFactory.getAnalysis(selectedAnalysis);
         analysis.setPoints(userDataHandler.getImagePointHashMap());
