@@ -12,6 +12,13 @@ import java.util.Map;
 abstract class BaseAnalysis implements IAnalysisSet{
 
     HashMap<PointEnum, ImagePoint> points = null;
+    HashMap<CalculationTypeEnum, IResult> results = null;
+    HashMap<CalculationTypeEnum, ICalculation> calculations = null;
+
+    public BaseAnalysis(){
+        this.calculations = new HashMap<>();
+        this.results = new HashMap<>();
+    }
 
     @Override
     public void setPoints(HashMap<PointEnum, ImagePoint> points){

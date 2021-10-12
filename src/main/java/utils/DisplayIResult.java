@@ -22,10 +22,12 @@ import java.util.Map;
 
 public class DisplayIResult {
 
-    TableView<List<String>> tableView = new TableView<>();
-    Stage window = new Stage();
+    TableView<List<String>> tableView;
+    Stage window;
 
     public void display(HashMap<CalculationTypeEnum, IResult> results, String title){
+        this.tableView = new TableView<>();
+        this.window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
         window.setMinWidth(500);

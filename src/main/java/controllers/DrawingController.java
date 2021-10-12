@@ -119,7 +119,6 @@ public class DrawingController {
 
 
     private ArrayList<Circle> displayedCircle;
-    private final HashMap<PointEnum, Circle> points = new HashMap<>();
     ArrayList<PointEnum> pointList = new ArrayList<>();
 
     private UserDataHandler userDataHandler = UserDataHandler.getInstance();
@@ -387,7 +386,7 @@ public class DrawingController {
     //TODO move
     //  calculation to math utils
     //  drawing to MainPaneLineDrawer
-    private Path drawLineBetweenPointsExactDistance(int first, int second) {
+    private Path drawLineBetweenPointsExactDistance(PointEnum first, PointEnum second) {
         Path path = new Path();
 
         double x1;
@@ -395,11 +394,11 @@ public class DrawingController {
         double x2;
         double y2;
 
-        x1 = displayedCircle.get(first).getCenterX();
-        y1 = displayedCircle.get(first).getCenterY();
+        x1 = this.mainPaneCircleDrawer.getPoint(first).getCenterX();
+        y1 = this.mainPaneCircleDrawer.getPoint(first).getCenterY();
 
-        x2 = displayedCircle.get(second).getCenterX();
-        y2 = displayedCircle.get(second).getCenterY();
+        x2 = this.mainPaneCircleDrawer.getPoint(second).getCenterX();
+        y2 = this.mainPaneCircleDrawer.getPoint(second).getCenterY();
 
         path.getElements().add(new MoveTo(x1, y1));
         path.getElements().add(new LineTo(x2, y2));
@@ -412,7 +411,7 @@ public class DrawingController {
     //TODO move
     //  calculation to math utils
     //  drawing to MainPaneLineDrawer
-    private Path drawLineBetweenPointsExtended(int first, int second, int lineDistance) {
+    private Path drawLineBetweenPointsExtended(PointEnum first, PointEnum second, int lineDistance) {
         Path path = new Path();
 
         double x1;
@@ -423,11 +422,11 @@ public class DrawingController {
         double y3;
 
 
-        x1 = displayedCircle.get(first).getCenterX();
-        y1 = displayedCircle.get(first).getCenterY();
+        x1 = this.mainPaneCircleDrawer.getPoint(first).getCenterX();
+        y1 = this.mainPaneCircleDrawer.getPoint(first).getCenterY();
 
-        x2 = displayedCircle.get(second).getCenterX();
-        y2 = displayedCircle.get(second).getCenterY();
+        x2 = this.mainPaneCircleDrawer.getPoint(second).getCenterX();
+        y2 = this.mainPaneCircleDrawer.getPoint(second).getCenterY();
 
         double d = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 
@@ -436,8 +435,10 @@ public class DrawingController {
         x3 = r * x2 + (1 - r) * x1;  //Some Cool Calculations
         y3 = r * y2 + (1 - r) * y1;
 
-
-        path.getElements().add(new MoveTo(displayedCircle.get(first).getCenterX(), displayedCircle.get(first).getCenterY()));
+        path.getElements().add(new MoveTo(
+                this.mainPaneCircleDrawer.getPoint(first).getCenterX(),
+                this.mainPaneCircleDrawer.getPoint(first).getCenterY()
+        ));
         path.getElements().add(new LineTo(x3, y3));
         path.setStroke(Color.YELLOW);
         path.setMouseTransparent(true);
@@ -450,7 +451,7 @@ public class DrawingController {
     //TODO move
     //  calculation to math utils
     //  drawing to MainPaneLineDrawer
-    private Path drawLinesUpToIntersection(int first, int second, int third, int fourth) {
+    private Path drawLinesUpToIntersection(PointEnum first, PointEnum second, PointEnum third, PointEnum fourth) {
         Path path = new Path();
 
         double x1;
@@ -462,17 +463,17 @@ public class DrawingController {
         double x4;
         double y4;
 
-        x1 = displayedCircle.get(first).getCenterX();
-        y1 = displayedCircle.get(first).getCenterY();
+        x1 = this.mainPaneCircleDrawer.getPoint(first).getCenterX();
+        y1 = this.mainPaneCircleDrawer.getPoint(first).getCenterY();
 
-        x2 = displayedCircle.get(second).getCenterX();
-        y2 = displayedCircle.get(second).getCenterY();
+        x2 = this.mainPaneCircleDrawer.getPoint(second).getCenterX();
+        y2 = this.mainPaneCircleDrawer.getPoint(second).getCenterY();
 
-        x3 = displayedCircle.get(third).getCenterX();
-        y3 = displayedCircle.get(third).getCenterY();
+        x3 = this.mainPaneCircleDrawer.getPoint(third).getCenterX();
+        y3 = this.mainPaneCircleDrawer.getPoint(third).getCenterY();
 
-        x4 = displayedCircle.get(fourth).getCenterX();
-        y4 = displayedCircle.get(fourth).getCenterY();
+        x4 = this.mainPaneCircleDrawer.getPoint(fourth).getCenterX();
+        y4 = this.mainPaneCircleDrawer.getPoint(fourth).getCenterY();
 
         double d1 = (x1 - x2) * (y3 - y4);
         double d2 = (y1 - y2) * (x3 - x4);
@@ -489,7 +490,10 @@ public class DrawingController {
         double xIntercept = (u1 * u2x - u3x * u4) / d;
         double yIntercept = (u1 * u2y - u3y * u4) / d;
 
-        path.getElements().add(new MoveTo(displayedCircle.get(first).getCenterX(), displayedCircle.get(first).getCenterY()));
+        path.getElements().add(new MoveTo(
+                this.mainPaneCircleDrawer.getPoint(first).getCenterX(),
+                this.mainPaneCircleDrawer.getPoint(first).getCenterY()
+        ));
         path.getElements().add(new LineTo(xIntercept, yIntercept));
         path.setStroke(Color.YELLOW);
         path.setMouseTransparent(true);
@@ -500,16 +504,19 @@ public class DrawingController {
     //TODO move
     //  calculation to math utils
     //  drawing to MainPaneLineDrawer
-    private Path drawPerpendicularLine(int first, int lineDistance) {
+    private Path drawPerpendicularLine(PointEnum first, int lineDistance) {
         Path path = new Path();
 
         double x1;
         double y1;
 
-        x1 = displayedCircle.get(first).getCenterX();
-        y1 = displayedCircle.get(first).getCenterY();
+        x1 = this.mainPaneCircleDrawer.getPoint(first).getCenterX();
+        y1 = this.mainPaneCircleDrawer.getPoint(first).getCenterY();
 
-        path.getElements().add(new MoveTo(displayedCircle.get(first).getCenterX(), displayedCircle.get(first).getCenterY()));
+        path.getElements().add(new MoveTo(
+                this.mainPaneCircleDrawer.getPoint(first).getCenterX(),
+                this.mainPaneCircleDrawer.getPoint(first).getCenterY()
+        ));
         path.getElements().add(new LineTo(x1, y1 + lineDistance));   // same x value , different y value , defines perpendicular line
         path.setStroke(Color.YELLOW);
         path.setMouseTransparent(true);
@@ -520,7 +527,7 @@ public class DrawingController {
     //TODO move
     //  calculation to math utils
     //  drawing to MainPaneLineDrawer
-    private Path drawObliqueLine(int first, int second, int third, int fourth, int fifth) {
+    private Path drawObliqueLine(PointEnum first, PointEnum second, PointEnum third, PointEnum fourth, PointEnum fifth) {
 
         Path path = new Path();
         double x1;
@@ -532,17 +539,17 @@ public class DrawingController {
         double x4;
         double y4;
 
-        x1 = displayedCircle.get(first).getCenterX();
-        y1 = displayedCircle.get(first).getCenterY();
+        x1 = this.mainPaneCircleDrawer.getPoint(first).getCenterX();
+        y1 = this.mainPaneCircleDrawer.getPoint(first).getCenterY();
 
-        x2 = displayedCircle.get(second).getCenterX();
-        y2 = displayedCircle.get(second).getCenterY();
+        x2 = this.mainPaneCircleDrawer.getPoint(second).getCenterX();
+        y2 = this.mainPaneCircleDrawer.getPoint(second).getCenterY();
 
-        x3 = displayedCircle.get(third).getCenterX();
-        y3 = displayedCircle.get(third).getCenterY();
+        x3 = this.mainPaneCircleDrawer.getPoint(third).getCenterX();
+        y3 = this.mainPaneCircleDrawer.getPoint(third).getCenterY();
 
-        x4 = displayedCircle.get(fourth).getCenterX();
-        y4 = displayedCircle.get(fourth).getCenterY();
+        x4 = this.mainPaneCircleDrawer.getPoint(fourth).getCenterX();
+        y4 = this.mainPaneCircleDrawer.getPoint(fourth).getCenterY();
 
         double d1 = (x1 - x2) * (y3 - y4);
         double d2 = (y1 - y2) * (x3 - x4);
@@ -559,7 +566,10 @@ public class DrawingController {
         double xIntercept = (u1 * u2x - u3x * u4) / d;
         double yIntercept = (u1 * u2y - u3y * u4) / d;
 
-        path.getElements().add(new MoveTo(displayedCircle.get(fifth).getCenterX(), displayedCircle.get(fifth).getCenterY()));
+        path.getElements().add(new MoveTo(
+                this.mainPaneCircleDrawer.getPoint(fifth).getCenterX(),
+                this.mainPaneCircleDrawer.getPoint(fifth).getCenterY()
+        ));
         path.getElements().add(new LineTo(xIntercept, yIntercept));
         path.setStroke(Color.YELLOW);
         path.setMouseTransparent(true);
@@ -581,40 +591,40 @@ public class DrawingController {
             //Sen neden yazmadın dersen inşa edeceğin mimariye uymayabilir diye ben yapmak istemedim.
 
             mainFrame.getChildren().removeIf(Path.class::isInstance);  // avoid multiple path creating
-            mainFrame.getChildren().addAll(drawLineBetweenPointsExtended(2, 3, 300), // 2 -Sella  3 - Nasion
-                    drawLineBetweenPointsExtended(13, 14, 300),  // 13-Menton 14Gonion
-                    drawLineBetweenPointsExtended(24, 27, 300), // 24 -OCCLUSAL_PLANE_INCISOR_EDGE 27 -LOWER_MOLAR_MESIAL_TIP
-                    drawLineBetweenPointsExtended(4, 6, 300)); // 4 - Orbitale , 6 - Porion
+            mainFrame.getChildren().addAll(drawLineBetweenPointsExtended(PointEnum.SELLA, PointEnum.NASION, 300), // 2 -Sella  3 - Nasion
+                    drawLineBetweenPointsExtended(PointEnum.MENTON, PointEnum.GONION, 300),  // 13-Menton 14Gonion
+                    drawLineBetweenPointsExtended(PointEnum.OCCLUSAL_PLANE_INCISOR_EDGE, PointEnum.LOWER_MOLAR_MESIAL_TIP, 300), // 24 -OCCLUSAL_PLANE_INCISOR_EDGE 27 -LOWER_MOLAR_MESIAL_TIP
+                    drawLineBetweenPointsExtended(PointEnum.ORBITALE, PointEnum.PORION, 300)); // 4 - Orbitale , 6 - Porion
 
             mainFrame.getChildren().addAll(
-                    drawLinesUpToIntersection(18, 20, 2, 3), // 18 -UPPER_INCISOR_CROWN_TIP , 20 -UPPER_INCISOR_ROOT_TIP
-                    drawLinesUpToIntersection(21, 23, 13, 14),// 21 - LOWER_INCISOR_CROWN_TIP , 23 - LOWER_INCISOR_ROOT_TIP
-                    drawLinesUpToIntersection(7, 8, 13, 14)  // 7 ANS- 8 PNS- 14 GONION- 13 MENTON
+                    drawLinesUpToIntersection(PointEnum.UPPER_INCISOR_CROWN_TIP, PointEnum.UPPER_INCISOR_ROOT_TIP, PointEnum.SELLA, PointEnum.NASION), // 18 -UPPER_INCISOR_CROWN_TIP , 20 -UPPER_INCISOR_ROOT_TIP
+                    drawLinesUpToIntersection(PointEnum.LOWER_INCISOR_CROWN_TIP, PointEnum.LOWER_INCISOR_ROOT_TIP, PointEnum.MENTON, PointEnum.GONION),// 21 - LOWER_INCISOR_CROWN_TIP , 23 - LOWER_INCISOR_ROOT_TIP
+                    drawLinesUpToIntersection(PointEnum.ANS, PointEnum.PNS, PointEnum.MENTON, PointEnum.GONION)  // 7 ANS- 8 PNS- 14 GONION- 13 MENTON
 
             );
             mainFrame.getChildren().addAll(
-                    drawLineBetweenPointsExactDistance(35, 43), // 35 - MIDPOINT_OF_COLUMELLA - 43 ST_Pogonion
-                    drawLineBetweenPointsExactDistance(3, 16), // 3 - Sella , 16 -  Articulare
-                    drawLineBetweenPointsExactDistance(16, 14) // 16 - Articulare , 14 -  Gonion
+                    drawLineBetweenPointsExactDistance(PointEnum.MIDPOINT_OF_COLUMELLA, PointEnum.ST_POGONION), // 35 - MIDPOINT_OF_COLUMELLA - 43 ST_Pogonion
+                    drawLineBetweenPointsExactDistance(PointEnum.SELLA, PointEnum.ARTICULARE), // 3 - Sella , 16 -  Articulare
+                    drawLineBetweenPointsExactDistance(PointEnum.ARTICULARE, PointEnum.GONION) // 16 - Articulare , 14 -  Gonion
             );
         }
         if (selectedAnalysis.toString() == "RICKETS") {
             mainFrame.getChildren().removeIf(Path.class::isInstance);  // to avoid multiple path creating
 
             mainFrame.getChildren().addAll(
-                    drawLineBetweenPointsExactDistance(34, 43),  //34 - TIP_OF_NOSE , 43 - ST_pogonion
-                    drawLineBetweenPointsExtended(2, 5, 450), // 5 - Basion, 2- Nasion
-                    drawLineBetweenPointsExtended(24, 27, 400),// 24 - OCCLUSAL_PLANE_INCISOR_EDGE, 27 - LOWER_MOLAR_MESIAL_TIP
-                    drawLineBetweenPointsExtended(6, 4, 300)  //6 - Porion , 4 - Orbitale
+                    drawLineBetweenPointsExactDistance(PointEnum.TIP_OF_NOSE, PointEnum.ST_POGONION),  //34 - TIP_OF_NOSE , 43 - ST_pogonion
+                    drawLineBetweenPointsExtended(PointEnum.NASION, PointEnum.BASION, 450), // 5 - Basion, 2- Nasion
+                    drawLineBetweenPointsExtended(PointEnum.OCCLUSAL_PLANE_INCISOR_EDGE, PointEnum.LOWER_MOLAR_MESIAL_TIP, 400),// 24 - OCCLUSAL_PLANE_INCISOR_EDGE, 27 - LOWER_MOLAR_MESIAL_TIP
+                    drawLineBetweenPointsExtended(PointEnum.PORION, PointEnum.ORBITALE, 300)  //6 - Porion , 4 - Orbitale
             );
 
             mainFrame.getChildren().addAll(
-                    drawLinesUpToIntersection(14, 13, 2, 11), //14 - gonion ,13 menton, 2 - Nasion , 11 - POG // Reverse lines creates triange
-                    drawLinesUpToIntersection(2, 11, 14, 13), //14 - gonion ,13 menton, 2 - Nasion , 11 - POG  // Reverse lines creates triange
-                    drawLinesUpToIntersection(18, 20, 2, 3), // 18 - UPPER_INCISOR_CROWN_TIP , 20 -  UPPER_INCISOR_ROOT_TIP , 2- Nasion , 3 -Sella
-                    drawLinesUpToIntersection(21, 23, 13, 14),//21 - LOWER_INCISOR_CROWN_TIP , 23 - LOWER_INCISOR_ROOT_TIP, 13 Menton , 14 Gonion
-                    drawPerpendicularLine(17, 200), // 17 - PT
-                    drawObliqueLine(14, 13, 2, 11, 17) // 14 - gonion ,13 menton 2-Nasion , 11 - POG , 17 - PT
+                    drawLinesUpToIntersection(PointEnum.GONION, PointEnum.MENTON, PointEnum.NASION, PointEnum.POG), //14 - gonion ,13 menton, 2 - Nasion , 11 - POG // Reverse lines creates triange
+                    drawLinesUpToIntersection(PointEnum.NASION, PointEnum.POG, PointEnum.GONION, PointEnum.MENTON), //14 - gonion ,13 menton, 2 - Nasion , 11 - POG  // Reverse lines creates triange
+                    drawLinesUpToIntersection(PointEnum.UPPER_INCISOR_CROWN_TIP, PointEnum.UPPER_INCISOR_ROOT_TIP, PointEnum.NASION, PointEnum.SELLA), // 18 - UPPER_INCISOR_CROWN_TIP , 20 -  UPPER_INCISOR_ROOT_TIP , 2- Nasion , 3 -Sella
+                    drawLinesUpToIntersection(PointEnum.LOWER_INCISOR_CROWN_TIP, PointEnum.LOWER_INCISOR_ROOT_TIP, PointEnum.MENTON, PointEnum.GONION),//21 - LOWER_INCISOR_CROWN_TIP , 23 - LOWER_INCISOR_ROOT_TIP, 13 Menton , 14 Gonion
+                    drawPerpendicularLine(PointEnum.PT, 200), // 17 - PT
+                    drawObliqueLine(PointEnum.GONION, PointEnum.MENTON, PointEnum.NASION, PointEnum.POG, PointEnum.PT) // 14 - gonion ,13 menton 2-Nasion , 11 - POG , 17 - PT
             );
         }
 

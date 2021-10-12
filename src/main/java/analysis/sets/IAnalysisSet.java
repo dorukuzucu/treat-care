@@ -9,8 +9,7 @@ import main.java.utils.PointEnum;
 import java.util.HashMap;
 
 public interface IAnalysisSet {
-    HashMap<CalculationTypeEnum, ICalculation> calculations = new HashMap<>();
-    HashMap<CalculationTypeEnum, IResult> results = new HashMap<>();
+
     public void setPoints(HashMap<PointEnum, ImagePoint> points);
     public void execute();
     public HashMap<CalculationTypeEnum, IResult> getResult();

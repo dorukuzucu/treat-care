@@ -2,11 +2,16 @@ package main.java.analysis.sets;
 
 import main.java.analysis.calculations.*;
 
+import main.java.analysis.results.IResult;
 import main.java.analysis.utils.CalculationTypeEnum;
 import main.java.utils.PointEnum;
 
+import java.util.HashMap;
+
+
 public class RicketsAnalysis extends BaseAnalysis {
     public RicketsAnalysis(){
+        super();
 
         this.calculations.put(CalculationTypeEnum.FACIAL_DEPTH, new FourPointAngleCalculation(PointEnum.PORION, PointEnum.ORBITALE, PointEnum.NASION, PointEnum.POG));
         this.calculations.put(CalculationTypeEnum.FACIAL_AXIS, new FourPointAngleCalculation(PointEnum.BASION, PointEnum.NASION, PointEnum.PT, PointEnum.GNATHION));
@@ -24,6 +29,5 @@ public class RicketsAnalysis extends BaseAnalysis {
         this.calculations.put(CalculationTypeEnum.L1_NA,new FourPointAngleCalculation(PointEnum.NASION, PointEnum.A_POINT, PointEnum.LOWER_INCISOR_CROWN_TIP, PointEnum.LOWER_INCISOR_ROOT_TIP));
         this.calculations.put(CalculationTypeEnum.L1_NA_DISTANCE,new PerpendicularToLineCalculation(PointEnum.RULER_1,PointEnum.RULER_2,PointEnum.NASION, PointEnum.A_POINT , PointEnum.LOWER_INCISOR_CROWN_TIP));
         this.calculations.put(CalculationTypeEnum.CONVEXITY,new PerpendicularToLineCalculation(PointEnum.RULER_1,PointEnum.RULER_2,PointEnum.NASION, PointEnum.POG , PointEnum.A_POINT));
-
     }
 }

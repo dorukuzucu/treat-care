@@ -198,4 +198,11 @@ public class MainPaneCircleDrawer {
             this.drawPointAt(pointEnum, pointData.getPointX(), pointData.getPointY());
         }
     }
+
+    public Circle getPoint(PointEnum pointEnum){
+        if(!this.points.containsKey(pointEnum)){
+            return null;
+        }
+        return this.points.get(pointEnum);
+    }
 }
