@@ -234,6 +234,10 @@ public class DrawingController {
                 }
                 else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)){
                     if (listIndex > 0) {
+                        if(this.mainPaneCircleDrawer.getPoint(selectedPoint)==null){
+                            listIndex -= 1;
+                            selectedPoint = this.anatomicalPoints.getItems().get(listIndex);
+                        }
                         this.mainPaneCircleDrawer.removePoint(selectedPoint);
                         this.anatomicalPoints.getSelectionModel().selectIndices(listIndex - 1);
                     }
