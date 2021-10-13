@@ -21,8 +21,11 @@ public class MainPaneCircleDrawer {
     private final AnchorPane mainPane;
     private double xShift;
     private double yShift;
+    private boolean isHidden = false;
+
     private final HashMap<PointEnum, Circle> points = new HashMap<>();
     private final HashMap<PointEnum, Label> labels = new HashMap<>();
+
     private final UserDataHandler userDataHandler = UserDataHandler.getInstance();
 
     public MainPaneCircleDrawer(AnchorPane mainPane, double xShift, double yShift){
@@ -184,6 +187,16 @@ public class MainPaneCircleDrawer {
     public void showAllLabels(){
         for (Map.Entry<PointEnum, Label> label : this.labels.entrySet()) {
             this.showLabel(label.getKey());
+        }
+    }
+
+    public void switchPointVisibility(){
+        if(this.isHidden){
+            this.showAllPoints();
+            this.isHidden = false;
+        } else {
+            this.hideAllPoints();
+            this.isHidden = true;
         }
     }
 

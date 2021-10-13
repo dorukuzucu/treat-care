@@ -122,7 +122,6 @@ public class DrawingController {
     private Line hLine;
 
 
-    private ArrayList<Circle> displayedCircle;
     ArrayList<PointEnum> pointList = new ArrayList<>();
 
     private UserDataHandler userDataHandler = UserDataHandler.getInstance();
@@ -151,9 +150,8 @@ public class DrawingController {
         anatomicalPoints.getSelectionModel().select(0);
     }
 
-    public void hideAllPointsAndLabels() {
-        this.mainPaneCircleDrawer.hideAllPoints();
-        this.mainPaneCircleDrawer.hideAllLabels();
+    public void switchVisibilityAllPointsAndLabels() {
+        this.mainPaneCircleDrawer.switchPointVisibility();
     }
 
     public void initialize() {
@@ -216,13 +214,10 @@ public class DrawingController {
         });
 
         cephImageView.setOnMouseExited(e -> {
-
             if (cephImageView.getImage() != null) {
                 hLine.setVisible(false);
                 vLine.setVisible(false);
                 zoomedImage.setVisible(false);
-
-
             }
         });
 
@@ -287,7 +282,6 @@ public class DrawingController {
 
     @FXML
     public void BrowseImage() throws IOException {
-
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JPG Files", "PNG Files", "JFIF Files", "*.jpg", "*.png", "*.jfif"));
         File file = fileChooser.showOpenDialog(mainFrame.getScene().getWindow());
@@ -309,7 +303,6 @@ public class DrawingController {
     }
 
     private void activateSearchedImage(File imageFile) throws FileNotFoundException {
-
         InputStream fileInputStream = new FileInputStream(imageFile);
         this.setImageToImageView(fileInputStream);
 
@@ -330,7 +323,6 @@ public class DrawingController {
         alteredCephImage.setEffect(colorAdjust);
         cephImageView = alteredCephImage;
         alteredZoomImage.setEffect(colorAdjust);
-
     }
 
     public void contrastAdjustments(float contrastValue) {
@@ -379,10 +371,7 @@ public class DrawingController {
         int i = (int) this.rulerSlider.getValue();
         rulerLabel.setText(i + " mm");
         rulerSliderValue = i;
-
     }
-
-
 
     @FXML
     private void ChanceZoomSlider() {
@@ -451,8 +440,6 @@ public class DrawingController {
         path.setMouseTransparent(true);
 
         return path;
-
-
     }
 
     //TODO move
@@ -535,7 +522,6 @@ public class DrawingController {
     //  calculation to math utils
     //  drawing to MainPaneLineDrawer
     private Path drawObliqueLine(PointEnum first, PointEnum second, PointEnum third, PointEnum fourth, PointEnum fifth) {
-
         Path path = new Path();
         double x1;
         double y1;
@@ -582,7 +568,6 @@ public class DrawingController {
         path.setMouseTransparent(true);
 
         return path;
-
     }
 
     //TODO split saving and calculation methods

@@ -41,7 +41,7 @@
             <Font size="22.0" />
          </font>
       </Button>
-      <Button fx:id="hideLabel" layoutX="709.0" mnemonicParsing="false" onAction="#hideAllPointsAndLabels" style="-fx-background-color: #8915C8;" text="Show/Hide" textFill="WHITE">
+      <Button fx:id="hideLabel" layoutX="709.0" mnemonicParsing="false" onAction="#switchVisibilityAllPointsAndLabels" style="-fx-background-color: #8915C8;" text="Show/Hide" textFill="WHITE">
          <font>
             <Font size="22.0" />
          </font>
@@ -100,28 +100,11 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <Label fx:id="nasionLabel" layoutX="154.0" layoutY="317.0" />
-      <Label fx:id="sellaLabel" layoutX="125.0" layoutY="382.0" />
-      <Label fx:id="orbitaleLabel" layoutX="146.0" layoutY="374.0" />
-      <Label fx:id="porionLabel" layoutX="189.0" layoutY="351.0" />
-      <Label fx:id="basionLabel" layoutX="175.0" layoutY="247.0" />
-      <Label fx:id="aLabel" layoutX="140.0" layoutY="410.0" />
-      <Label fx:id="bLabel" layoutX="116.0" layoutY="270.0" />
-      <Label fx:id="ansLabel" layoutX="183.0" layoutY="224.0" />
-      <Label fx:id="pnsLabel" layoutX="141.0" layoutY="279.0" prefHeight="17.0" prefWidth="27.0" />
-      <Label fx:id="mentonLabel" layoutX="132.0" layoutY="256.0" />
-      <Label fx:id="gnathionLabel" layoutX="74.0" layoutY="279.0" />
-      <Label fx:id="pogonionLabel" layoutX="175.0" layoutY="279.0" />
       <Button fx:id="exportButton" layoutX="939.0" mnemonicParsing="false" onAction="#exportImage" style="-fx-background-color: #8915C8;" text="Export" textFill="WHITE">
          <font>
             <Font size="22.0" />
          </font>
       </Button>
-      <Label fx:id="ruler1Label" layoutX="111.0" layoutY="247.0" />
-      <Label fx:id="ruler2Label" layoutX="199.0" layoutY="224.0" />
-      <Label fx:id="gonionLabel" layoutX="51.0" layoutY="239.0" />
-      <Label fx:id="ramusLabel" layoutX="74.0" layoutY="240.0" />
-      <Label fx:id="articulareLabel" layoutX="132.0" layoutY="224.0" />
       <Label fx:id="ptLabel" layoutX="127.0" layoutY="262.0" prefHeight="17.0" prefWidth="27.0" />
       <AnchorPane fx:id="zoomAnchor" layoutX="116.0" layoutY="512.0" prefHeight="288.0" prefWidth="270.0">
          <children>
