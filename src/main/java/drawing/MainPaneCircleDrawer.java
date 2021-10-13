@@ -77,6 +77,7 @@ public class MainPaneCircleDrawer {
         Label label = new Label();
         label.setText(text);
         label.setTextFill(Color.web("#ffffff"));
+        label.setMouseTransparent(true);
         return label;
     }
 

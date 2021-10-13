@@ -41,12 +41,12 @@
             <Font size="22.0" />
          </font>
       </Button>
-      <Button fx:id="hideLabel" layoutX="709.0" mnemonicParsing="false" onAction="#hideAllPointsAndLabels" style="-fx-background-color: #8915C8;" text="Hide" textFill="WHITE">
+      <Button fx:id="hideLabel" layoutX="709.0" mnemonicParsing="false" onAction="#hideAllPointsAndLabels" style="-fx-background-color: #8915C8;" text="Show/Hide" textFill="WHITE">
          <font>
             <Font size="22.0" />
          </font>
       </Button>
-      <Button fx:id="saveButton" layoutX="790.0" mnemonicParsing="false" onAction="#saveButtonClicked" style="-fx-background-color: #8915C8;" text="Save" textFill="WHITE">
+      <Button fx:id="saveButton" layoutX="855.0" mnemonicParsing="false" onAction="#saveButtonClicked" style="-fx-background-color: #8915C8;" text="Save" textFill="WHITE">
          <font>
             <Font size="22.0" />
          </font>
@@ -112,7 +112,7 @@
       <Label fx:id="mentonLabel" layoutX="132.0" layoutY="256.0" />
       <Label fx:id="gnathionLabel" layoutX="74.0" layoutY="279.0" />
       <Label fx:id="pogonionLabel" layoutX="175.0" layoutY="279.0" />
-      <Button fx:id="exportButton" layoutX="874.0" mnemonicParsing="false" onAction="#exportImage" style="-fx-background-color: #8915C8;" text="Export" textFill="WHITE">
+      <Button fx:id="exportButton" layoutX="939.0" mnemonicParsing="false" onAction="#exportImage" style="-fx-background-color: #8915C8;" text="Export" textFill="WHITE">
          <font>
             <Font size="22.0" />
          </font>
@@ -135,7 +135,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="clearButton" layoutX="974.0" mnemonicParsing="false" onAction="#clearAll" style="-fx-background-color: #8915C8;" text="Clear All" textFill="WHITE">
+      <Button fx:id="clearButton" layoutX="1039.0" mnemonicParsing="false" onAction="#clearAll" style="-fx-background-color: #8915C8;" text="Clear All" textFill="WHITE">
          <font>
             <Font size="22.0" />
          </font>

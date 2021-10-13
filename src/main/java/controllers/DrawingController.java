@@ -64,6 +64,7 @@ public class DrawingController {
     @FXML
     public Label raceLabel;
 
+
     @FXML
     public Button saveButton;
 
@@ -72,6 +73,7 @@ public class DrawingController {
 
     @FXML
     public Button exportButton;
+
 
     @FXML
     public Label currentDateLabel;
@@ -109,6 +111,8 @@ public class DrawingController {
     private double zoomValue = 200;
     private double zoomSliderValue;
 
+    @FXML
+    private Slider rotationSlider;
     @FXML
     public ListView<PointEnum> anatomicalPoints;
 
@@ -375,7 +379,10 @@ public class DrawingController {
         int i = (int) this.rulerSlider.getValue();
         rulerLabel.setText(i + " mm");
         rulerSliderValue = i;
+
     }
+
+
 
     @FXML
     private void ChanceZoomSlider() {
@@ -586,26 +593,30 @@ public class DrawingController {
             return;
 
         if (selectedAnalysis.toString() == "STEINER") {
-            // Senin için Hangi numara Hangi pointEnum yazdım reis!!!!!!!!!!!!!!
 
-            //Sen neden yazmadın dersen inşa edeceğin mimariye uymayabilir diye ben yapmak istemedim.
 
             mainFrame.getChildren().removeIf(Path.class::isInstance);  // avoid multiple path creating
-            mainFrame.getChildren().addAll(drawLineBetweenPointsExtended(PointEnum.SELLA, PointEnum.NASION, 300), // 2 -Sella  3 - Nasion
-                    drawLineBetweenPointsExtended(PointEnum.MENTON, PointEnum.GONION, 300),  // 13-Menton 14Gonion
-                    drawLineBetweenPointsExtended(PointEnum.OCCLUSAL_PLANE_INCISOR_EDGE, PointEnum.LOWER_MOLAR_MESIAL_TIP, 300), // 24 -OCCLUSAL_PLANE_INCISOR_EDGE 27 -LOWER_MOLAR_MESIAL_TIP
-                    drawLineBetweenPointsExtended(PointEnum.ORBITALE, PointEnum.PORION, 300)); // 4 - Orbitale , 6 - Porion
+            mainFrame.getChildren().addAll(
+                    drawLineBetweenPointsExtended(PointEnum.MENTON, PointEnum.GONION, 300),
+                    drawLineBetweenPointsExtended(PointEnum.OCCLUSAL_PLANE_INCISOR_EDGE, PointEnum.LOWER_MOLAR_MESIAL_TIP, 300),
+                    drawLineBetweenPointsExtended(PointEnum.ORBITALE, PointEnum.PORION , 350),
+                    drawLineBetweenPointsExtended(PointEnum.NASION, PointEnum.SELLA , 350)
+                    );
 
             mainFrame.getChildren().addAll(
-                    drawLinesUpToIntersection(PointEnum.UPPER_INCISOR_CROWN_TIP, PointEnum.UPPER_INCISOR_ROOT_TIP, PointEnum.SELLA, PointEnum.NASION), // 18 -UPPER_INCISOR_CROWN_TIP , 20 -UPPER_INCISOR_ROOT_TIP
-                    drawLinesUpToIntersection(PointEnum.LOWER_INCISOR_CROWN_TIP, PointEnum.LOWER_INCISOR_ROOT_TIP, PointEnum.MENTON, PointEnum.GONION),// 21 - LOWER_INCISOR_CROWN_TIP , 23 - LOWER_INCISOR_ROOT_TIP
-                    drawLinesUpToIntersection(PointEnum.ANS, PointEnum.PNS, PointEnum.MENTON, PointEnum.GONION)  // 7 ANS- 8 PNS- 14 GONION- 13 MENTON
-
+                    drawLinesUpToIntersection(PointEnum.UPPER_INCISOR_CROWN_TIP, PointEnum.UPPER_INCISOR_ROOT_TIP, PointEnum.SELLA, PointEnum.NASION),
+                    drawLinesUpToIntersection(PointEnum.LOWER_INCISOR_CROWN_TIP, PointEnum.LOWER_INCISOR_ROOT_TIP, PointEnum.MENTON, PointEnum.GONION),
+                    drawLinesUpToIntersection(PointEnum.ANS, PointEnum.PNS, PointEnum.MENTON, PointEnum.GONION),
+                    drawLinesUpToIntersection(PointEnum.MENTON, PointEnum.GONION, PointEnum.ANS, PointEnum.PNS),
+                    drawLinesUpToIntersection(PointEnum.SELLA, PointEnum.GNATHION, PointEnum.GONION, PointEnum.MENTON),
+                    drawLinesUpToIntersection(PointEnum.GONION, PointEnum.MENTON, PointEnum.SELLA, PointEnum.GNATHION)
             );
             mainFrame.getChildren().addAll(
-                    drawLineBetweenPointsExactDistance(PointEnum.MIDPOINT_OF_COLUMELLA, PointEnum.ST_POGONION), // 35 - MIDPOINT_OF_COLUMELLA - 43 ST_Pogonion
-                    drawLineBetweenPointsExactDistance(PointEnum.SELLA, PointEnum.ARTICULARE), // 3 - Sella , 16 -  Articulare
-                    drawLineBetweenPointsExactDistance(PointEnum.ARTICULARE, PointEnum.GONION) // 16 - Articulare , 14 -  Gonion
+                    drawLineBetweenPointsExactDistance(PointEnum.MIDPOINT_OF_COLUMELLA, PointEnum.ST_POGONION),
+                    drawLineBetweenPointsExactDistance(PointEnum.SELLA, PointEnum.ARTICULARE),
+                    drawLineBetweenPointsExactDistance(PointEnum.SELLA, PointEnum.GNATHION),
+                    drawLineBetweenPointsExactDistance(PointEnum.NASION, PointEnum.SELLA),
+                    drawLineBetweenPointsExactDistance(PointEnum.ARTICULARE, PointEnum.GONION)
             );
         }
         if (selectedAnalysis.toString() == "RICKETS") {
