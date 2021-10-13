@@ -4,6 +4,7 @@ package main.java.controllers;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -137,7 +138,14 @@ public class DrawingController {
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PNG Files", "*.png"));
         File file = fileChooser.showSaveDialog(mainFrame.getScene().getWindow());
         try {
-            ImageIO.write(SwingFXUtils.fromFXImage(cephImageAnchor.snapshot(null, null), null), "png", file);
+            SnapshotParameters snapshotParameters = new SnapshotParameters();
+            snapshotParameters.setViewport(new Rectangle2D(
+                    800, // xmin
+                    150, // ymin
+                    700, // width
+                    700 // height
+            ));
+            ImageIO.write(SwingFXUtils.fromFXImage(mainFrame.snapshot(snapshotParameters, null), null), "png", file);
         } catch (IOException e) {
             e.printStackTrace();
         }
