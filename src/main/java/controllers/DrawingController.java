@@ -143,7 +143,7 @@ public class DrawingController {
                     800, // xmin
                     150, // ymin
                     700, // width
-                    700 // height
+                    600 // height
             ));
             ImageIO.write(SwingFXUtils.fromFXImage(mainFrame.snapshot(snapshotParameters, null), null), "png", file);
         } catch (IOException e) {
@@ -243,8 +243,8 @@ public class DrawingController {
                 else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)){
                     if (listIndex > 0) {
                         if(this.mainPaneCircleDrawer.getPoint(selectedPoint)==null){
-                            listIndex -= 1;
-                            selectedPoint = this.anatomicalPoints.getItems().get(listIndex);
+
+                            selectedPoint = this.anatomicalPoints.getItems().get(listIndex-1);
                         }
                         this.mainPaneCircleDrawer.removePoint(selectedPoint);
                         this.anatomicalPoints.getSelectionModel().selectIndices(listIndex - 1);

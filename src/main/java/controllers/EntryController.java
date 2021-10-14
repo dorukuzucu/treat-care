@@ -30,6 +30,12 @@ public class EntryController{
         Pane view = PaneLoader.getInstance().getPane(PaneEnum.ARCHIVE);
         mainPane.setCenter(view);
     }
+    @FXML
+    private void callAbout(ActionEvent event) throws IOException {
+        mainPaneStatic = mainPane;
+        Pane view = PaneLoader.getInstance().getPane(PaneEnum.ABOUT);
+        mainPane.setCenter(view);
+    }
 
     @FXML
     public void callDrawingPanel() throws IOException {

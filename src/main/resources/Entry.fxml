@@ -38,7 +38,7 @@
                   <Font size="25.0" />
                </font>
             </Button>
-            <Button layoutX="1.0" layoutY="491.0" mnemonicParsing="false" prefHeight="76.0" prefWidth="249.0" style="-fx-background-color: #8915C8;" text="About" textFill="WHITE">
+            <Button layoutX="1.0" layoutY="491.0" mnemonicParsing="false" onAction="#callAbout" prefHeight="76.0" prefWidth="249.0" style="-fx-background-color: #8915C8;" text="About" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>

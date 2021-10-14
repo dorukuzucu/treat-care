@@ -6,6 +6,7 @@ public enum PaneEnum {
     ENHANCE_GUI,
     ENTRY,
     NEW_PATIENT,
+    ABOUT,
     WRONG_EXTENSION
 }
 

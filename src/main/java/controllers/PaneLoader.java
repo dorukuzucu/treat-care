@@ -24,6 +24,7 @@ public class PaneLoader {
         //TODO: Parent loader, this.addPane(PaneEnum.ENHANCE_GUI, readFxmlToPane("/EnhanceGUI.fxml"));
         this.addPane(PaneEnum.ENTRY, "/Entry.fxml");
         this.addPane(PaneEnum.NEW_PATIENT, "/NewPatient.fxml");
+        this.addPane(PaneEnum.ABOUT, "/About.fxml");
         //TODO: Parent loader, this.addPane(PaneEnum.WRONG_EXTENSION, readFxmlToPane("/WrongExtensionAlert.fxml"));
 
         System.out.println(paneHashMap) ;
